@@ -6,10 +6,10 @@ import random
 import os
 
 class PointSampler(object):
-"""
-Since original point clouds are not visually representative of the corresponding object, points are sampled randomly on each of the faces of the mesh.
-The following code has not been written by me, due credit goes to https://github.com/nikitakaraevv
-"""
+    """
+    Since original point clouds are not visually representative of the corresponding object, points are sampled randomly on each of the faces of the mesh.
+    The following code has not been written by me, due credit goes to https://github.com/nikitakaraevv
+    """
 
     def __init__(self, output_size):
         assert isinstance(output_size, int)
@@ -71,7 +71,7 @@ def read_off(filepath):
     n_verts,n_faces,_ = tuple([int(i) for i in values.split(' ')])
     ## Store values for vertices and faces (vertrices first)
     verts = [[float(vert) for vert in f.readline().strip().split(' ')] for i in range(n_verts)]
-    faces = [[float(face) for face in f.readline().strip().split(' ')][1:] for i in range(n_faces)]
+    faces = [[int(face) for face in f.readline().strip().split(' ')][1:] for i in range(n_faces)]
 
     # print("Number of vertices = " + str(len(verts)),"Number of faces = " + str(len(faces)))
     f.close()

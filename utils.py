@@ -83,3 +83,13 @@ def pcshow(xs,ys,zs):
                       color='DarkSlateGrey')),
                       selector=dict(mode='markers'))
     fig.show()
+
+def normalize_pointcloud(pointcloud):
+    """
+    Pointcloud data will now have zero mean and will be centered around the origin, normalized to a unit sphere.
+    """
+
+    pointcloud -= pointcloud.mean(axis = 0)
+    pointcloud /= np.max(np.linalg.norm(pointcloud,axis = 1))
+
+    return pointcloud

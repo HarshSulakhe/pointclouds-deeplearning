@@ -87,9 +87,33 @@ def pcshow(xs,ys,zs):
 def normalize_pointcloud(pointcloud):
     """
     Pointcloud data will now have zero mean and will be centered around the origin, normalized to a unit sphere.
+    pointcloud is of shape (N,3) where N is the number of vertices
     """
 
     pointcloud -= pointcloud.mean(axis = 0)
     pointcloud /= np.max(np.linalg.norm(pointcloud,axis = 1))
 
     return pointcloud
+
+def rotate_pointcloud(pointcloud):
+    """
+    Function to randomly rotate a pointcloud by an angle theta about the z axis, this is useful to make a deep learning model view invariant.
+    Explanation can be found at https://en.wikipedia.org/wiki/Rotation_matrix#Basic_rotations.
+    pointcloud is of shape (N,3) where N is the number of vertices.
+    """
+    angle = theta*2*math.pi*np.random.random()
+    rotation_matrix = np.array([[math.cos(theta),-math.sin(theta),0],[math.sin(theta),math.cos(theta),0],[0,0,1]])
+
+    rotated_pointcloud = np.dot(rotation_matrix,pointcloud.T).T ## Shape N,3
+
+    return rotated_pointcloud
+
+def noise_pointcloud(pointcloud):
+    """
+    To make a deep learning model robust to variances in distributions of input data, a slight noise is added to the original pointcloud.
+    """
+
+    noise = np.random.normal(0,0.05,size = (pointcloud.shape))
+
+    noisy_pointcloud = pointcloud + noise
+    return noisy_pointcloud

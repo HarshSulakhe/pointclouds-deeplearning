@@ -33,7 +33,7 @@ class ModelNet10(torch.utils.data.Dataset):
         filepath = self.files[index][0]
         category = self.files[index][1]
         pointcloud = self.preprocess(filepath)
-        return pointcloud,category
+        return pointcloud.T,category
 
 
 class TrainTransforms(object):

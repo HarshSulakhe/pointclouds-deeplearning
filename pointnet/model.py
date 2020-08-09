@@ -68,3 +68,24 @@ class TransformNet(nn.Module):
         x = nn.MaxPool1d(x.size()[-1])(x)
         out = x.view(x.size()[0],-1)
         return out,m3,m64
+
+class PointNet(nn.Module):
+
+    def __init__(self,classes = 10):
+        super(PointNet,self).__init__()
+        self.transform = TransformNet()
+        self.fc_1 = nn.Linear(1024,512)
+        self.fc_2 = nn.Linear(512,256)
+        self.fc_3 = nn.Linear(256,classes)
+        self.bn_1 = nn.BatchNorm1d(512)
+        self.bn_2 = nn.BatchNorm1d(256)
+        self.dropout = nn.Dropout(p = 0.3)
+        self.logsoft = nn.LogSoftmax(dim = 1)
+
+    def forward(self,x):
+        x,m3,m64 = self.transform(x)
+        x = F.relu(self.bn_1(self.fc_1(x)))
+        x = F.relu(self.bn_2(self.dropout(self.fc_1(x))))
+        output = self.logsoft(self.fc_3(x))
+        return output,m3,m64
+    

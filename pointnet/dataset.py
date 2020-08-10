@@ -1,7 +1,8 @@
 import torch
 import torchvision
 import numpy as np
-import os
+import os,sys
+sys.path.append('../')
 from utils import *
 
 class ModelNet10(torch.utils.data.Dataset):
@@ -17,7 +18,8 @@ class ModelNet10(torch.utils.data.Dataset):
         for category in os.listdir(root_dir):
             path = root_dir+'/'+category+'/'+folder+'/'
             for file in os.listdir(path):
-                self.files.append((path+file,self.classes[category]))
+                if file.endswith('.off'):
+                    self.files.append((path+file,self.classes[category]))
 
     def __len__(self):
         return len(self.files)
@@ -39,3 +41,7 @@ class ModelNet10(torch.utils.data.Dataset):
 class TrainTransforms(object):
     def __call__(self,pointcloud):
         return torch.from_numpy(noise_pointcloud(rotate_pointcloud(normalize_pointcloud(pointcloud))))
+
+class TestTransforms(object):
+    def __call__(self,pointcloud):
+        return torch.from_numpy(normalize_pointcloud(pointcloud))

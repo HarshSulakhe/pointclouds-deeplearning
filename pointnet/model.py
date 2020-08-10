@@ -85,7 +85,6 @@ class PointNet(nn.Module):
     def forward(self,x):
         x,m3,m64 = self.transform(x)
         x = F.relu(self.bn_1(self.fc_1(x)))
-        x = F.relu(self.bn_2(self.dropout(self.fc_1(x))))
+        x = F.relu(self.bn_2(self.dropout(self.fc_2(x))))
         output = self.logsoft(self.fc_3(x))
         return output,m3,m64
-    

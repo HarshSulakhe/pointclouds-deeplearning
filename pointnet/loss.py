@@ -15,7 +15,7 @@ class PointNetLoss(nn.Module):
         eye64 = torch.eye(64).repeat(bs,1,1)
         if torch.cuda.is_available():
             eye3 = eye3.cuda()
-            eye64 = eye46.cuda()
-        diff64 = eye64 - torch.bmm(m64,m64.T)
-        diff3 = eye3 - torch.bmm(m3,m3.T)
+            eye64 = eye64.cuda()
+        diff64 = eye64 - torch.bmm(m64,m64.transpose(1,2))
+        diff3 = eye3 - torch.bmm(m3,m3.transpose(1,2))
         return criterion(outputs,labels) + self.alpha*(torch.norm(diff3)+torch.norm(diff64)) / float(bs)

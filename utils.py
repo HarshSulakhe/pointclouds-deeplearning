@@ -77,6 +77,12 @@ def read_off(filepath):
     f.close()
     return verts,faces
 
+def read_new(filepath):
+
+    with open(filepath,'r') as f:
+        x = f.readlines()
+        h = [[float(y) for y in n ] for n in [l.strip().split(' ') for l in x]]
+        return (np.array(h))
 
 def visualize_rotate(data):
     """

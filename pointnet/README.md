@@ -9,7 +9,7 @@ An implementation of [PointNet: Deep Learning on Point Sets for 3D Classificatio
 
 ### Modifications to the dataset
 
-Instead of using the original data, that consisted of an pointclouds with an inconsistent amount of vertices, I sampled 1024 points from each of the pointclouds to provide for uniformity during training. The creation of the new data was done using `CreateModelNet` in `dataset.py`, and can be applied for both datasets. The sampled data can be found [here](https://drive.google.com/drive/folders/1kR6dTMev_w5xoWK_rcFlHzXigojUssUF?usp=sharing).
+Instead of using the original data, that consisted of pointclouds with an inconsistent amount of vertices, I sampled 1024 points from each of the pointclouds to provide for uniformity during training. The creation of the new data was done using `CreateModelNet` in `dataset.py`, and can be applied for both datasets. The sampled data can be found [here](https://drive.google.com/drive/folders/1kR6dTMev_w5xoWK_rcFlHzXigojUssUF?usp=sharing).
 
 ## Training the model
 The procedure was the same as mentioned in the paper, including the hyperparameters used. Visualizations of training and testing losses and accuracies can be done using TensorBoard as implemented in `train.ipynb`.
@@ -24,7 +24,7 @@ The procedure was the same as mentioned in the paper, including the hyperparamet
 <div style="text-align:center"><img src="./images/loss_10.png" /></div>
 <div style="text-align:center"><img src="./images/accuracy_10.png" /></div>
 
-Since the model used was originally meant for ModelNet40, it inevitably overfits the training data as can be observed from the plots above.<br> Pre-trained model available [here](linktomodel)
+Since the model used was originally meant for ModelNet40, it inevitably overfits the training data as can be observed from the plots above.<br> Pre-trained model available [here](https://drive.google.com/drive/folders/1kR6dTMev_w5xoWK_rcFlHzXigojUssUF?usp=sharing)
 
 
 ## File Descriptions

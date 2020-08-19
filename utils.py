@@ -62,8 +62,9 @@ def read_off(filepath):
     """
     f = open(filepath,'r')
     ## Verify if File header is a valid OFF header
-    if "OFF" != f.readline().strip():
-        print("Not a valid OFF file, returning None")
+    header = f.readline().strip()
+    if "OFF" != header:
+        print("Not a valid OFF file, returning None",header)
         return None,None
     # print(f.readline().strip() == "OFF")
     ## Now parse number of faces and vertices

@@ -5,7 +5,7 @@ import os,sys
 sys.path.append('../')
 from utils import *
 
-class CreateModelNet10():
+class CreateModelNet():
 
     def __init__(self,root_dir,folder = 'train',transforms = None):
         self.root_dir = root_dir
@@ -21,10 +21,7 @@ class CreateModelNet10():
                 if file.endswith('.off'):
                     self.files.append((path+file,self.classes[category]))
 
-        self.write('/home/harsh/M10')
-
-    def __len__(self):
-        return len(self.files)
+        self.write('/home/harsh/M40')
 
     def preprocess(self,filepath):
         verts,faces = read_off(filepath)
@@ -37,10 +34,9 @@ class CreateModelNet10():
         for filepath in self.files:
             temp = filepath[0].split('/')[-3:]
             temp = '/'.join(temp)
-            # print(temp)
             new_path = new_root+'/'+ temp
+            print(filepath[0])
             new = self.preprocess(filepath[0])
-            print(new_path)
             with open(new_path,'w') as f:
                 for i in range(len(new)):
                     for k in range(len(new[i])):
